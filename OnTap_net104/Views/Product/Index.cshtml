@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OnTap_net104.Models.Product>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    <form action="@Url.Action("AddToCart","Product")" method="post">
+                        <div class="form-group">
+                            <label for="quantity">Số lượng:</label>
+                            <input type="number" id="quantity" name="quantity" min="1" max="@item.Quantity" value="1" class="form-control" />
+                        </div>
+                        <input type="hidden" name="id" value="@item.ID" />
+                        <input type="hidden" name="price" value="@item.Price" />
+                        <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                    </form>
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
